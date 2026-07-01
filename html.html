@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Home - Online Book Store</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="index.php">
+            <i class="fas fa-book-open"></i> Book Hub
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="home.php">Home</a>
+                <a class="nav-link" href="cart.php">
+                    <i class="fas fa-shopping-cart"></i> Cart
+                </a>
+                <a class="nav-link" href="purchases.php">
+                    <i class="fas fa-history"></i> Purchases
+                </a>
+                <a class="nav-link" href="logout.php">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="mb-4">
+        <h1>Welcome!</h1>
+        <p>Explore our collection of books.</p>
+    </div>
+    
+    <div class="row">
+        <!-- Books will be displayed here -->
+    </div>
+</div>
+
+<footer class="bg-dark text-light mt-5 py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h5>Book Hub</h5>
+                <p>Your one-stop destination for quality books at affordable prices.</p>
+            </div>
+            <div class="col-md-4">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="index.php" class="text-light">Home</a></li>
+                    <li><a href="cart.php" class="text-light">Cart</a></li>
+                    <li><a href="purchases.php" class="text-light">Purchases</a></li>
+                    <li><a href="logout.php" class="text-light">Logout</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h5>Contact Us</h5>
+                <p>Email: info@bookhub.com</p>
+                <p>Phone: +92-123-4567890</p>
+                <p>&copy; 2026 Book Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Login - Book Hub</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+   <link rel="stylesheet" href="style.css">
+   <style>
+      body {
+         background: linear-gradient(135deg, #001f3f 0%, #0ea5e9 100%);
+         min-height: 100vh;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+      }
+
+      .login-container {
+         width: 100%;
+         max-width: 420px;
+      }
+
+      .login-card {
+         border-radius: 15px;
+         border: none;
+         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+         overflow: hidden;
+      }
+
+      .login-header {
+         background: linear-gradient(135deg, #001f3f 0%, #1e3a8a 100%);
+         color: white;
+         padding: 30px;
+         text-align: center;
+      }
+
+      .login-header h2 {
+         font-size: 1.8rem;
+         font-weight: bold;
+         margin: 0;
+      }
+
+      .login-header p {
+         font-size: 0.95rem;
+         margin-top: 5px;
+         opacity: 0.9;
+      }
+
+      .login-body {
+         padding: 30px;
+      }
+
+      .form-label {
+         font-weight: 600;
+         color: #333;
+         margin-bottom: 8px;
+      }
+
+      .form-control {
+         border: 2px solid #e0e0e0;
+         border-radius: 8px;
+         padding: 10px 12px;
+         font-size: 0.95rem;
+         transition: all 0.3s;
+      }
+
+      .form-control:focus {
+         border-color: #0ea5e9;
+         box-shadow: 0 0 0 0.2rem rgba(14, 165, 233, 0.15);
+      }
+
+      .password-wrapper {
+         position: relative;
+      }
+
+      .password-wrapper .form-control {
+         padding-right: 40px;
+      }
+
+      .password-toggle {
+         position: absolute;
+         right: 12px;
+         top: 50%;
+         transform: translateY(-50%);
+         cursor: pointer;
+         color: #666;
+         background: none;
+         border: none;
+         font-size: 1rem;
+         padding: 5px;
+      }
+
+      .password-toggle:hover {
+         color: #0ea5e9;
+      }
+
+      .password-hint {
+         font-size: 0.8rem;
+         color: #0ea5e9;
+         margin-top: 5px;
+         display: flex;
+         align-items: center;
+         gap: 5px;
+      }
+
+      .password-hint i {
+         font-size: 0.75rem;
+      }
+
+      .btn-login {
+         background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+         border: none;
+         color: white;
+         font-weight: 600;
+         padding: 10px;
+         border-radius: 8px;
+         transition: all 0.3s;
+         margin-top: 15px;
+      }
+
+      .btn-login:hover {
+         transform: translateY(-2px);
+         box-shadow: 0 5px 20px rgba(14, 165, 233, 0.4);
+         color: white;
+      }
+
+      .login-footer {
+         text-align: center;
+         padding: 20px 30px 30px;
+         border-top: 1px solid #e0e0e0;
+      }
+
+      .login-footer p {
+         margin: 0;
+         font-size: 0.95rem;
+      }
+
+      .login-footer a {
+         color: #0ea5e9;
+         text-decoration: none;
+         font-weight: 600;
+      }
+
+      .login-footer a:hover {
+         text-decoration: underline;
+      }
+
+      .error-message {
+         background: #fee;
+         color: #c33;
+         padding: 12px;
+         border-radius: 8px;
+         margin-bottom: 15px;
+         border-left: 4px solid #c33;
+      }
+   </style>
+</head>
+<body>
+
+<div class="login-container">
+    <div class="card login-card">
+        
+        <div class="login-header">
+            <h2><i class="fas fa-book-open"></i> Book Hub</h2>
+            <p>Sign In to Your Account</p>
+        </div>
+
+        <div class="login-body">
+            <form action="" method="post">
+                <div class="mb-4">
+                    <label class="form-label"><i class="fas fa-envelope"></i> Email Address</label>
+                    <input type="email" name="email" placeholder="Enter your email" class="form-control" required>
+                    <div class="password-hint">
+                        <i class="fas fa-check-circle"></i>
+                        Use the email you registered with
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label"><i class="fas fa-lock"></i> Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" name="password" id="password" placeholder="Enter your password" class="form-control" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword()">
+                            <i class="fas fa-eye" id="toggleIcon"></i>
+                        </button>
+                    </div>
+                    <div class="password-hint">
+                        <i class="fas fa-info-circle"></i>
+                        This is your Book Hub password, not your Gmail password
+                    </div>
+                </div>
+                
+                <button type="submit" name="submit" class="btn btn-login w-100 py-2 fw-bold">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+        </div>
+
+        <div class="login-footer">
+            <p>Don't have an account? <a href="register.php">Create one now</a></p>
+        </div>
+
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Register - Book Hub</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+   <link rel="stylesheet" href="style.css">
+   <style>
+      body {
+         background: linear-gradient(135deg, #001f3f 0%, #0ea5e9 100%);
+         min-height: 100vh;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         padding: 20px 0;
+      }
+
+      .register-container {
+         width: 100%;
+         max-width: 420px;
+      }
+
+      .register-card {
+         border-radius: 15px;
+         border: none;
+         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+         overflow: hidden;
+      }
+
+      .register-header {
+         background: linear-gradient(135deg, #001f3f 0%, #1e3a8a 100%);
+         color: white;
+         padding: 30px;
+         text-align: center;
+      }
+
+      .register-header h2 {
+         font-size: 1.8rem;
+         font-weight: bold;
+         margin: 0;
+      }
+
+      .register-header p {
+         font-size: 0.95rem;
+         margin-top: 5px;
+         opacity: 0.9;
+      }
+
+      .register-body {
+         padding: 30px;
+      }
+
+      .form-label {
+         font-weight: 600;
+         color: #333;
+         margin-bottom: 8px;
+      }
+
+      .form-control {
+         border: 2px solid #e0e0e0;
+         border-radius: 8px;
+         padding: 10px 12px;
+         font-size: 0.95rem;
+         transition: all 0.3s;
+      }
+
+      .form-control:focus {
+         border-color: #0ea5e9;
+         box-shadow: 0 0 0 0.2rem rgba(14, 165, 233, 0.15);
+      }
+
+      .password-wrapper {
+         position: relative;
+      }
+
+      .password-wrapper .form-control {
+         padding-right: 40px;
+      }
+
+      .password-toggle {
+         position: absolute;
+         right: 12px;
+         top: 50%;
+         transform: translateY(-50%);
+         cursor: pointer;
+         color: #666;
+         background: none;
+         border: none;
+         font-size: 1rem;
+         padding: 5px;
+      }
+
+      .password-toggle:hover {
+         color: #0ea5e9;
+      }
+
+      .password-hint {
+         font-size: 0.8rem;
+         color: #0ea5e9;
+         margin-top: 5px;
+         display: flex;
+         align-items: center;
+         gap: 5px;
+      }
+
+      .password-hint i {
+         font-size: 0.75rem;
+      }
+
+      .btn-register {
+         background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+         border: none;
+         color: white;
+         font-weight: 600;
+         padding: 10px;
+         border-radius: 8px;
+         transition: all 0.3s;
+         margin-top: 15px;
+      }
+
+      .btn-register:hover {
+         transform: translateY(-2px);
+         box-shadow: 0 5px 20px rgba(14, 165, 233, 0.4);
+         color: white;
+      }
+
+      .register-footer {
+         text-align: center;
+         padding: 20px 30px 30px;
+         border-top: 1px solid #e0e0e0;
+      }
+
+      .register-footer p {
+         margin: 0;
+         font-size: 0.95rem;
+      }
+
+      .register-footer a {
+         color: #0ea5e9;
+         text-decoration: none;
+         font-weight: 600;
+      }
+
+      .register-footer a:hover {
+         text-decoration: underline;
+      }
+   </style>
+</head>
+<body>
+
+<div class="register-container">
+    <div class="card register-card">
+        
+        <div class="register-header">
+            <h2><i class="fas fa-book-open"></i> Book Hub</h2>
+            <p>Create Your Account</p>
+        </div>
+
+        <div class="register-body">
+            <form action="" method="post">
+                <div class="mb-3">
+                    <label class="form-label"><i class="fas fa-user"></i> Full Name</label>
+                    <input type="text" name="name" placeholder="Enter your full name" class="form-control" required>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label"><i class="fas fa-envelope"></i> Email Address</label>
+                    <input type="email" name="email" placeholder="Enter your email" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label"><i class="fas fa-lock"></i> Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" name="password" id="password" placeholder="Create a password" class="form-control" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('password')">
+                            <i class="fas fa-eye" id="toggleIcon1"></i>
+                        </button>
+                    </div>
+                    <div class="password-hint">
+                        <i class="fas fa-info-circle"></i>
+                        Minimum 6 characters recommended
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label"><i class="fas fa-lock"></i> Confirm Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" name="cpassword" id="cpassword" placeholder="Re-enter your password" class="form-control" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('cpassword')">
+                            <i class="fas fa-eye" id="toggleIcon2"></i>
+                        </button>
+                    </div>
+                    <div class="password-hint">
+                        <i class="fas fa-info-circle"></i>
+                        Must match your password above
+                    </div>
+                </div>
+                
+                <button type="submit" name="submit" class="btn btn-register w-100 py-2 fw-bold">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+            </form>
+        </div>
+
+        <div class="register-footer">
+            <p>Already have an account? <a href="login.php">Login here</a></p>
+        </div>
+
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

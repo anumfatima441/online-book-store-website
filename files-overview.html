@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Files Overview - Book Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #001f3f 0%, #0ea5e9 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            padding: 40px 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .files-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .file-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border-left: 5px solid #0ea5e9;
+        }
+
+        .file-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .file-card.php {
+            border-left-color: #667eea;
+        }
+
+        .file-card.css {
+            border-left-color: #f59e0b;
+        }
+
+        .file-card.sql {
+            border-left-color: #10b981;
+        }
+
+        .file-card .file-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .file-card .file-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #001f3f;
+            margin-bottom: 10px;
+        }
+
+        .file-card .file-type {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #667eea;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .file-card .file-description {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .file-card .file-features {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 12px;
+        }
+
+        .file-features h6 {
+            color: #001f3f;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .file-features ul {
+            list-style: none;
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        .file-features li {
+            padding: 4px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .file-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .category-section {
+            margin-bottom: 50px;
+        }
+
+        .category-title {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .summary-box {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .summary-box h3 {
+            color: #001f3f;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: #f0f7ff;
+            border-radius: 8px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #0ea5e9;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .back-button {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .back-button:hover {
+            background: #555799;
+            color: white;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1><i class="fas fa-file-code"></i> Book Hub - Files Overview</h1>
+            <p>Complete list of all files in your online bookstore</p>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="summary-box">
+            <h3><i class="fas fa-chart-pie"></i> Project Statistics</h3>
+            <div class="summary-stats">
+                <div class="stat-item">
+                    <div class="stat-number">25</div>
+                    <div class="stat-label">Total Books</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">11</div>
+                    <div class="stat-label">PHP Files</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Configuration</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">Database</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">Stylesheet</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PHP Files Section -->
+        <div class="category-section">
+            <div class="category-title"><i class="fas fa-code"></i> PHP Files (Backend Logic)</div>
+            <div class="files-grid">
+                <!-- Index -->
+                <div class="file-card php">
+                    <div class="file-icon"><i class="fas fa-home"></i></div>
+                    <div class="file-name">index.php</div>
+                    <span class="file-type">Main Page</span>
+                    <div class="file-description">Homepage of the bookstore with book listing, search functionality, and hero section.</div>
+                    <div class="file-features">
+                        <h6>Features:</h6>
+                        <ul>
+                            <li>Book display grid</li>
+                            <li>Search functionality</li>
+                            <li>User authentication check</li>
+                            <li>Modern hero section</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Login -->
+                <div class="file-card php">
+                    <div class="file-icon"><i class="fas fa-sign-in-alt"></i></div>
+                    <div class="file-name">login.php</div>
+                    <span class="file-type">Authentication</span>
+                    <div class="file-description">User login page with email and password. Includes show/hide password toggle.</div>
+                    <div class="file-features">
+                        <h6>Features:</h6>
+                        <ul>
+                            <li>Email validation</li>
+                            <li>Password toggle (show/hide)</li>
+                            <li>Session management</li>
+                            <li>Error handling</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Register -->
+                <div class="file-card php">
+                    <div class="file-icon"><i class="fas fa-user-plus"></i></div>
+                    <div class="file-name">register.php</div>
+                    <span class="file-type">Authentication</span>
+                    <div class="file-description">New user registration page with password confirmation and validation.</div>
+                    <div class="file-features">
+                        <h6>Features:</h6>
+                        <ul>
+                            <li>Form validation</li>
+                            <li>Password matching</li>
+                            <li>Duplicate email check</li>
+                            <li>MD5 password encryption</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Book Details -->
+                <div class="file-card php">
+                    <div class="file-icon"><i class="fas fa-book"></i></div>
+                    <div class="file-name">book-details.php</div>
+                    <span class="file-type">Product Page</span>
+                    <div class="file-description">Displays full book information with description, rating, and action buttons.</div>
+                    <div class="file-features">
+                        <h6>Features:</h6>
+                        <ul>
+                            <li>Full book description</li>
+                            <li>Star rating display</li>
+                            <li>Add to cart button</li>
+                            <li>Favorite toggle</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Cart -->
+                <div class="file-card php">
+                    <div class="file-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <div class="file-name">cart.php</div>
+                    <span class="file-type">Shopping</span>
+                    <div class="file-description">Shopping cart page showing all items, quantities, and checkout option.</div>
+                    <div class="file-features">
+                        <h6>Features:</h6>
+                        <ul>
+                            <li>Item listing</li>
+                            <li>Quantity management</li>
+                            <li>Price calculation</li>
+                            <li>Remove items</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Checkout -->
+                <div class="file-card php">
+                    <div class="file-icon"><i class="fas fa-cash-register"></i></div>
+                    <div class="file-name">checkout.php</div>
+                    <span class="file-type">Payment</span>
+                    <div class="file-description">Processes purchases and moves items from cart to purchase history.</div>
+                    <div class="file-features">
+                        <h6>Features:</h6>
+                        <ul>
+                            <li>Order processing</li>
+                            <li>Cart clearing</li>
+                            <li>Purchase confirmation</li>
+                            <li>Database updates</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Purchases -->
+                <div class="file-card php">
+                    <div class="file-icon"><i class="fas fa-history"></i></div>
+                    <div class="file-name">purchases.php</div>
+                    <span class="file-type">History</span>
+                    <div class="file-description">Shows user's purchase history with all previously bought books.</div>
+                    <div class="file-features">
+                        <h6>Features:</h6>
+                        <ul>
+                            <li>Purchase listing</li>
+                            <li>Date/time display</li>
+                            <li>Book details</li>
+                            <li>Quantity info</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Favorites -->
+                <div class="file-card php">
+                    <div class="file-icon"><i class="fas fa-heart"></i></div>
+                    <div class="file-name">favorites.php</div>
+                    <span class="file-type">Wishlist</span>
+                    <div class="file-description">Displays all books added to user's favorites/wishlist.</div>
+                    <div class="file-features">
+                        <h6>Features:</h6>
+                        <ul>
+                            <li>Favorite listing</li>
+                            <li>Remove from favorites</li>
+                            <li>View book details</li>
+                            <li>Empty state handling</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Toggle Favorite -->
+                <div class="file-card php">
+                    <div class="file-icon"><i class="fas fa-star"></i></div>
+                    <div class="file-name">toggle_favorite.php</div>
+                    <span class="file-type">API</span>
+                    <div class="file-description">AJAX endpoint for adding/removing books from favorites. Returns JSON response.</div>
+                    <div class="file-features">
+                        <h6>Features:</h6>
+                        <ul>
+                            <li>Add to favorites</li>
+                            <li>Remove from favorites</li>
+                            <li>Table auto-creation</li>
+                            <li>JSON responses</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Add to Cart -->
+                <div class="file-card php">
+                    <div class="file-icon"><i class="fas fa-plus-circle"></i></div>
+                    <div class="file-name">add_to_cart.php</div>
+                    <span class="file-type">Cart Management</span>
+                    <div class="file-description">Handles adding books to shopping cart with quantity management.</div>
+                    <div class="file-features">
+                        <h6>Features:</h6>
+                        <ul>
+                            <li>Add items to cart</li>
+                            <li>Quantity tracking</li>
+                            <li>Duplicate prevention</li>
+                            <li>Database insert</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Logout -->
+                <div class="file-card php">
+                    <div class="file-icon"><i class="fas fa-sign-out-alt"></i></div>
+                    <div class="file-name">logout.php</div>
+                    <span class="file-type">Authentication</span>
+                    <div class="file-description">Destroys user session and redirects to login page for logout functionality.</div>
+                    <div class="file-features">
+                        <h6>Features:</h6>
+                        <ul>
+                            <li>Session destroy</li>
+                            <li>Redirect to login</li>
+                            <li>Clean logout</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuration Section -->
+        <div class="category-section">
+            <div class="category-title"><i class="fas fa-cogs"></i> Configuration Files</div>
+            <div class="files-grid">
+                <!-- Config -->
+                <div class="file-card">
+                    <div class="file-icon"><i class="fas fa-database"></i></div>
+                    <div class="file-name">config.php</div>
+                    <span class="file-type">Database Connection</span>
+                    <div class="file-description">Central database connection file used by all PHP files.</div>
+                    <div class="file-features">
+                        <h6>Contains:</h6>
+                        <ul>
+                            <li>MySQL connection settings</li>
+                            <li>Database name</li>
+                            <li>Host & credentials</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Style CSS -->
+                <div class="file-card css">
+                    <div class="file-icon"><i class="fas fa-palette"></i></div>
+                    <div class="file-name">style.css</div>
+                    <span class="file-type">Stylesheet</span>
+                    <div class="file-description">1000+ lines of modern CSS with animations, gradients, and responsive design.</div>
+                    <div class="file-features">
+                        <h6>Includes:</h6>
+                        <ul>
+                            <li>Color variables</li>
+                            <li>Animations & transitions</li>
+                            <li>Responsive grid</li>
+                            <li>Component styles</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Database Section -->
+        <div class="category-section">
+            <div class="category-title"><i class="fas fa-table"></i> Database</div>
+            <div class="files-grid">
+                <!-- DB Setup -->
+                <div class="file-card sql">
+                    <div class="file-icon"><i class="fas fa-database"></i></div>
+                    <div class="file-name">db_setup.sql</div>
+                    <span class="file-type">Database Schema</span>
+                    <div class="file-description">SQL file creating all database tables and inserting 14 sample books.</div>
+                    <div class="file-features">
+                        <h6>Creates Tables:</h6>
+                        <ul>
+                            <li>users (authentication)</li>
+                            <li>books (catalog)</li>
+                            <li>cart (shopping)</li>
+                            <li>purchases (orders)</li>
+                            <li>favorites (wishlist)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documentation -->
+        <div class="category-section">
+            <div class="category-title"><i class="fas fa-file-alt"></i> Documentation</div>
+            <div class="files-grid">
+                <!-- README -->
+                <div class="file-card">
+                    <div class="file-icon"><i class="fas fa-readme"></i></div>
+                    <div class="file-name">README.md</div>
+                    <span class="file-type">Documentation</span>
+                    <div class="file-description">Project documentation and setup instructions.</div>
+                </div>
+
+                <!-- TESTING -->
+                <div class="file-card">
+                    <div class="file-icon"><i class="fas fa-flask"></i></div>
+                    <div class="file-name">TESTING.md</div>
+                    <span class="file-type">Testing Guide</span>
+                    <div class="file-description">Testing procedures and test cases.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Summary -->
+        <div class="summary-box">
+            <h3><i class="fas fa-check-circle"></i> Key Features Implemented</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div>
+                    <h5 style="color: #0ea5e9; margin-bottom: 10px;">� Books Collection</h5>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✓ 14 Original Books</li>
+                        <li>✓ 11 New Books Added</li>
+                        <li>✓ History & Science Focus</li>
+                        <li>✓ Complete Descriptions</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 style="color: #0ea5e9; margin-bottom: 10px;">📚 Shopping</h5>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✓ Browse all books</li>
+                        <li>✓ Search functionality</li>
+                        <li>✓ Book details view</li>
+                        <li>✓ Star ratings</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 style="color: #0ea5e9; margin-bottom: 10px;">🛒 Cart & Checkout</h5>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✓ Add to cart</li>
+                        <li>✓ View cart</li>
+                        <li>✓ Checkout process</li>
+                        <li>✓ Purchase history</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 style="color: #0ea5e9; margin-bottom: 10px;">❤️ Favorites</h5>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✓ Add to wishlist</li>
+                        <li>✓ View favorites</li>
+                        <li>✓ Remove from favorites</li>
+                        <li>✓ AJAX toggle</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><a href="index.php" class="back-button"><i class="fas fa-arrow-left"></i> Back to Bookstore</a></p>
+            <p style="margin-top: 20px; opacity: 0.8;">&copy; 2024 Book Hub. All files documented and ready to use.</p>
+        </div>
+    </div>
+</body>
+</html>
